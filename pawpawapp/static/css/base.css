@@ -1,0 +1,48 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 10vh 1fr;
+    grid-template-rows: auto 1fr;
+    margin: -8px;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.grid-header {
+    background-color: orange;
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    border: 2px solid black;
+}
+
+.grid-header h1 {
+    font-family: cursive;
+    color: white;
+    font-size: 35px;
+    padding-left: 5px;
+
+}
+
+.grid-sidebar {
+    display: grid;
+    grid-rows: 1 / span 2;
+    background-color: orange;
+    border: 2px solid black;
+    border-top: 0px;
+}
+
+#sidebar-links {
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+#sidebar-links a {
+    display: inline-block;
+    margin-top: 5px;
+    text-decoration: none;
+    color: black;
+    padding-top: 10px;
+}
+
+.grid-main-content {
+    text-align: center;
+}

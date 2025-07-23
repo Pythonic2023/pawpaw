@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>PawPaw</title>
+</head>
+<body>
+
+        <div class="grid-container">
+        <div class="grid-sidebar">
+            <div id="sidebar-links">
+                <a href="{% url 'cart' %}">Cart</a>
+                <a href="{% url 'products' %}">Products</a>
+                <a href="{% url 'news' %}">News</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+        <div class="grid-header">
+            <h1>Paw Paw</h1>
+        </div>
+            <main class="grid-main-content">
+            {% block content %} <p>Welcome to Paw Paw, your one stop shop for pet products</p> {% endblock %}
+        </main>
+        </div>
+
+</body>
+</html>
