@@ -21,3 +21,11 @@ def news(request):
 
 def contact(request):
     return render(request, "contact.html")
+
+
+def login(request):
+    return render(request, "login.html")
+
+
+def account(request):
+    return render(request, "account.html")
