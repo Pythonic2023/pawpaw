@@ -1,5 +1,8 @@
-from django.shortcuts import render
 from django.shortcuts import HttpResponse
+from django.shortcuts import render
+from .forms import SignInForm, SignUpForm
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -28,4 +31,31 @@ def login(request):
 
 
 def account(request):
-    return render(request, "account.html")
+    if request.method == "POST":
+        user_signin = SignInForm(request.POST, prefix="user_signin")
+        user_signup = SignUpForm(request.POST, prefix="user_signup")
+        if 'signup' in request.POST:
+            if user_signup.is_valid():
+                user_name = user_signup.cleaned_data['username']
+                first_name = user_signup.cleaned_data["first_name"]
+                last_name = user_signup.cleaned_data["last_name"]
+                email = user_signup.cleaned_data["email"]
+                password = user_signup.cleaned_data["password"]
+                user_instance = User.objects.create_user(user_name, email, password)
+                user_instance.first_name = first_name
+                user_instance.last_name = last_name
+                user_instance.save()
+            return HttpResponse("signup pressed")
+
+        elif 'signin' in request.POST:
+            return HttpResponse("signin pressed")
+        else:
+            return None
+    else:
+        signin_form = SignInForm(prefix="user_signin")
+        signup_form = SignUpForm(prefix="user_signup")
+        context = {
+            "signinform": signin_form,
+            "signupform": signup_form,
+        }
+        return render(request,"account.html", context)
