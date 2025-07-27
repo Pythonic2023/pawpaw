@@ -3,16 +3,36 @@
 
 {% block content %}
     <p>Account page</p>
-
     <form method="POST">
         {% csrf_token %}
-        {{ signinform.as_p }}
+        {% for field in signinform %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label_tag }} {{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        {% endfor %}
         <button type="submit" name="signin">Signin</button>
     </form>
 
      <form method="POST">
         {% csrf_token %}
-        {{ signupform.as_p }}
+        {% for field in signupform %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label_tag }} {{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </p>
+        {% endfor %}
+
         <button type="submit" name="signup">Signup</button>
     </form>
 

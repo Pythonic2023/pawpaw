@@ -1,7 +1,9 @@
+from django.core.exceptions import MultipleObjectsReturned
 from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from .forms import SignInForm, SignUpForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 # Create your views here.
@@ -37,15 +39,17 @@ def account(request):
         if 'signup' in request.POST:
             if user_signup.is_valid():
                 user_name = user_signup.cleaned_data['username']
-                first_name = user_signup.cleaned_data["first_name"]
-                last_name = user_signup.cleaned_data["last_name"]
-                email = user_signup.cleaned_data["email"]
-                password = user_signup.cleaned_data["password"]
-                user_instance = User.objects.create_user(user_name, email, password)
-                user_instance.first_name = first_name
-                user_instance.last_name = last_name
-                user_instance.save()
-            return HttpResponse("signup pressed")
+                first_name = user_signup.cleaned_data['first_name']
+                last_name = user_signup.cleaned_data['last_name']
+                email = user_signup.cleaned_data['email']
+                password = user_signup.cleaned_data['password']
+                user = User.objects.create_user(user_name, email, password)
+                user.first_name = first_name
+                user.last_name = last_name
+                user.save()
+            else:
+                return render(request, "account.html", {'signupform': user_signup, 'signinform': user_signin})
+
 
         elif 'signin' in request.POST:
             return HttpResponse("signin pressed")
