@@ -3,6 +3,7 @@
 
 {% block content %}
     <p>Account page</p>
+    <h1>Sign in</h1>
     <form method="POST">
         {% csrf_token %}
         {% for field in signinform %}
@@ -16,9 +17,10 @@
                 {% endif %}
             </p>
         {% endfor %}
-        <button type="submit" name="signin">Signin</button>
+        <button type="submit" name="signin">Sign in</button>
     </form>
 
+    <h1>Sign up</h1>
      <form method="POST">
         {% csrf_token %}
         {% for field in signupform %}
@@ -33,7 +35,7 @@
             </p>
         {% endfor %}
 
-        <button type="submit" name="signup">Signup</button>
+        <button type="submit" name="signup">Sign up</button>
     </form>
 
 {% endblock %}

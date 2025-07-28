@@ -34,9 +34,9 @@ def login(request):
 
 def account(request):
     if request.method == "POST":
-        user_signin = SignInForm(request.POST, prefix="user_signin")
-        user_signup = SignUpForm(request.POST, prefix="user_signup")
         if 'signup' in request.POST:
+            user_signup = SignUpForm(request.POST, prefix="user_signup")
+            user_signin = SignInForm(prefix="user_signin")
             if user_signup.is_valid():
                 user_name = user_signup.cleaned_data['username']
                 first_name = user_signup.cleaned_data['first_name']
@@ -47,11 +47,20 @@ def account(request):
                 user.first_name = first_name
                 user.last_name = last_name
                 user.save()
+                return render(request, "base.html")
             else:
                 return render(request, "account.html", {'signupform': user_signup, 'signinform': user_signin})
 
 
         elif 'signin' in request.POST:
+            if request.method == 'POST':
+                if 'signin' in request.POST:
+                    user_signin = SignInForm(request.POST, prefix="user_signin")
+                    user_signup = SignUpForm(prefix="user_signup")
+                    if user_signin.is_valid():
+                        HttpResponse("Signed in")
+                    else:
+                        return render(request, "account.html", {'signinform': user_signin, 'signupform': user_signup})
             return HttpResponse("signin pressed")
         else:
             return None
