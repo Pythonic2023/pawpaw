@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pawpawapp.urls'
+ROOT_URLCONF = 'pawpawproject.urls'
 
 TEMPLATES = [
     {
