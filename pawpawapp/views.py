@@ -49,7 +49,6 @@ def account(request):
 
 def signup(request):
     user_signup = SignUpForm(request.POST, prefix="user_signup")
-    user_signin = AuthenticationForm()
     if user_signup.is_valid():
         user_name = user_signup.cleaned_data['username']
         first_name = user_signup.cleaned_data['first_name']
@@ -60,8 +59,9 @@ def signup(request):
         user.first_name = first_name
         user.last_name = last_name
         user.save()
-        return render(request, "base.html")
+        return render(request, "signupsuccess.html", {'user': user_name})
     else:
+        user_signin = AuthenticationForm()
         return render(request, "account.html", {'signupform': user_signup, 'signinform': user_signin})
 
 
