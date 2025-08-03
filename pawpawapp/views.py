@@ -1,4 +1,6 @@
-from django.shortcuts import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest
+from django.shortcuts import HttpResponse, redirect
 from django.shortcuts import render
 from .forms import SignUpForm
 from django.contrib.auth.models import User
@@ -13,7 +15,15 @@ def index(request):
 
 
 def cart(request):
-    return render(request, "cart.html")
+    if not request.user.is_authenticated:
+        path = request.path
+        formatted_path = path.replace("/", "")
+        context = {
+            'error': formatted_path,
+        }
+        return render(request, "loginrequired.html", context)
+    else:
+        return render(request, "cart.html")
 
 
 def products(request):

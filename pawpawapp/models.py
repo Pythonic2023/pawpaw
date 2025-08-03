@@ -6,7 +6,7 @@ class Cart(models.Model):
     user = OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.username}"
+        return f"{self.user.pk}"
 
 
 class CartItem(models.Model):
