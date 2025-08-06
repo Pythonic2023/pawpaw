@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{block pagetitle}
+    <h1>Thanks for signing up!</h1>
+{endblock}
+
 {% block content %}
     <h1>Thank you!</h1>
     <p>You have successfully signed up to PawPaw, {{ user }}</p>
+    <form action="{% url 'account' %}" method="GET">
+        {% csrf_token %}
+        <button type="submit">Sign in</button>
+    </form>
 {% endblock %}

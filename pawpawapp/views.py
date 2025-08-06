@@ -6,6 +6,7 @@ from .forms import SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from .models import Cart, CartItem
 
 
 # Create your views here.
@@ -16,13 +17,24 @@ def index(request):
 
 def cart(request):
     if not request.user.is_authenticated:
-        path = request.path
-        formatted_path = path.replace("/", "")
+        path = request.path # Get path from request object
+        formatted_path = path.replace("/", "") # Format to a user friendly string with no slashes
         context = {
             'error': formatted_path,
         }
         return render(request, "loginrequired.html", context)
     else:
+        # Get Users cart items if there is any and send them to template
+        authenticated_user = User.objects.get(username=request.user)
+        if Cart(user=authenticated_user):
+            print(authenticated_user)
+            cart_instance = Cart.objects.get(user=authenticated_user)
+            cart_item_instance = CartItem.objects.all()
+            cart_items = cart_item_instance
+            context = {'cart': cart_items,
+                       }
+            print(cart_items)
+            return render(request, "cart.html", context)
         return render(request, "cart.html")
 
 

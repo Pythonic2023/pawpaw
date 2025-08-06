@@ -1,0 +1,18 @@
+.cart-container {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    flex-direction: column;
+    border: 3px solid black;
+    border-radius: 10px;
+    background-color: orange;
+    margin: 0 auto;
+
+}
+
+.cart-item {
+    display: flex;
+    justify-content: center;
+}
+
+

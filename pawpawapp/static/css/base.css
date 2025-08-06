@@ -8,18 +8,27 @@
 }
 
 .grid-header {
+    display: grid;
+    grid-template-columns: 15vh 1fr;
     background-color: orange;
     grid-column: 1 / span 2;
     grid-row: 1;
     border: 2px solid black;
 }
 
+.page-title {
+    grid-column-start: 2;
+    text-align: center;
+    padding-right: 10%;
+}
+
+
+
 .grid-header h1 {
     font-family: cursive;
     color: white;
     font-size: 35px;
     padding-left: 5px;
-
 }
 
 .grid-sidebar {
@@ -44,5 +53,7 @@
 }
 
 .grid-main-content {
+    padding-top: 5%;
+    padding-right: 6%;
     text-align: center;
 }

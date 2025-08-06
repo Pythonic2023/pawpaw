@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+        <h1>My cart</h1>
+{% endblock %}
 
 {% block content %}
-    <p>My cart</p>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <div class="cart-container">
+    {% for item in cart %}
+        <div class="cart-item"><p>{{ item }}</p></div>
+    {% endfor %}
+    </div>
 {% endblock %}

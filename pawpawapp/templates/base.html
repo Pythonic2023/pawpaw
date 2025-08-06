@@ -19,11 +19,14 @@
             </div>
         </div>
         <div class="grid-header">
-            <h1>Paw Paw</h1>
+            <div class="site-title"><h1>Paw Paw</h1></div>
+            <div class="page-title">{% block pagetitle %}  {% endblock %}</div>
         </div>
-            <main class="grid-main-content">
+        <div class="grid-main-content">
+            <div class="block-content">
             {% block content %} <p>Welcome to Paw Paw, your one stop shop for pet products</p> {% endblock %}
-        </main>
+            </div>
+        </div>
         </div>
 
 </body>
