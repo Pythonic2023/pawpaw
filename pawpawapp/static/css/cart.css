@@ -1,18 +1,36 @@
 .cart-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto;
     justify-content: center;
-    width: 50%;
-    flex-direction: column;
-    border: 3px solid black;
-    border-radius: 10px;
     background-color: orange;
-    margin: 0 auto;
-
+    width: 30%;
+    border: 3px solid black;
+    border-radius: 12px;
 }
 
 .cart-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     justify-content: center;
+    align-content: center;
+    background-color: orange;
 }
 
+.button {
+    display: grid;
+    grid-template-columns: auto;
+    align-self: center;
+    padding-right: 3px;
+    padding-top: 17px;
+    height: 20px;
+}
+
+#proceed {
+    padding-left: 15px;
+}
+
+#delete {
+    align-self: center;
+    justify-content: center;
+}
 

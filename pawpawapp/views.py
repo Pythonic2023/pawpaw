@@ -27,15 +27,27 @@ def cart(request):
         # Get Users cart items if there is any and send them to template
         authenticated_user = User.objects.get(username=request.user)
         if Cart(user=authenticated_user):
-            print(authenticated_user)
             cart_instance = Cart.objects.get(user=authenticated_user)
             cart_item_instance = CartItem.objects.all()
             cart_items = cart_item_instance
             context = {'cart': cart_items,
                        }
-            print(cart_items)
             return render(request, "cart.html", context)
         return render(request, "cart.html")
+
+
+def delete_cart_item(request):
+    if request.method == "POST":
+        cart_item = request.POST.get("item_id")
+        try:
+            cart_item_instance = CartItem.objects.get(id=cart_item)
+            cart_item_instance.delete()
+        except Exception as e:
+            return HttpResponse(e)
+        return HttpResponse("Success")
+    else:
+        print("failed")
+        return HttpResponse("Failed")
 
 
 def products(request):

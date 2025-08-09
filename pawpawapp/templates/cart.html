@@ -8,8 +8,17 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
     <div class="cart-container">
+        <h2>Checkout</h2>
     {% for item in cart %}
-        <div class="cart-item"><p>{{ item }}</p></div>
+        <div class="cart-item">
+            <form  action="{% url 'delete_item' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <div class="button"><button id="delete" type="submit">X</button></div>
+            </form>
+            <p>{{ item }}</p>
+        </div>
     {% endfor %}
+        <div id="proceed"><button type="submit">Proceed</button></div>
     </div>
 {% endblock %}
