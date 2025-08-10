@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+    <h1>Payment</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in paymentform %}
+            <div class="field">{{ field.label_tag }} {{ field }}</div>
+        {% endfor %}
+    </form>
+{% endblock %}

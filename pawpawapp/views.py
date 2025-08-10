@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.shortcuts import HttpResponse, redirect
 from django.shortcuts import render
-from .forms import SignUpForm
+from .forms import SignUpForm, PaymentForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -42,12 +42,18 @@ def delete_cart_item(request):
         try:
             cart_item_instance = CartItem.objects.get(id=cart_item)
             cart_item_instance.delete()
+            cart_items_list = CartItem.objects.all()
+            cart_items = cart_items_list
+            context = {
+                'cart': cart_items,
+            }
+            return render(request, "cart.html", context)
         except Exception as e:
-            return HttpResponse(e)
-        return HttpResponse("Success")
+            delete_cart_item_error = "Oops, we had trouble with your cart items."
+            return site_error(request, delete_cart_item_error)
     else:
-        print("failed")
-        return HttpResponse("Failed")
+        error_message = "We seem to be have trouble, please try again."
+        return site_error(request, error_message)
 
 
 def products(request):
@@ -127,3 +133,18 @@ def signin(request):
 def user_logout(request):
     logout(request)
     return HttpResponse("logged out")
+
+
+def site_error(request, error_message):
+    context = {
+        'error_message': error_message,
+    }
+
+    return render(request, "siteerror.html", context)
+
+
+def payment(request):
+    context = {
+        'paymentform': PaymentForm
+    }
+    return render(request, "payment.html", context)

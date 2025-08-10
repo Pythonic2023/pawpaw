@@ -19,6 +19,9 @@
             <p>{{ item }}</p>
         </div>
     {% endfor %}
-        <div id="proceed"><button type="submit">Proceed</button></div>
+        <form action="{% url 'payment' %}">
+            {% csrf_token %}
+            <div id="proceed"><button type="submit">Payment</button></div>
+        </form>
     </div>
 {% endblock %}
