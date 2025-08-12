@@ -1,0 +1,30 @@
+.paymentcontainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    background-color: orange;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 12px;
+}
+
+.gridcontainer {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    justify-items: left;
+    grid-gap: 15px;
+}
+
+.paymentcontainer #paybutton {
+    margin-top: 10px;
+    width: 20%;
+    align-self: center;
+}
+
+
+
+
+
+

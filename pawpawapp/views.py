@@ -148,3 +148,14 @@ def payment(request):
         'paymentform': PaymentForm
     }
     return render(request, "payment.html", context)
+
+
+def payment_complete(request):
+    cart_items = CartItem.objects.all()
+    user = request.user
+    context = {
+        'cart_items': cart_items,
+        'user': user,
+    }
+
+    return render(request, "paymentcomplete.html", context)

@@ -15,4 +15,7 @@ class SignUpForm(forms.ModelForm):
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ['first_name', 'last_name', 'card_number', 'cvv', 'street_address', 'city', 'state']
+        fields = ['first_name', 'last_name', 'street_address', 'city', 'state',  'card_number', 'cvv',]
+        widgets = {
+            'card_number': forms.TextInput(attrs={'type': "password"})
+        }

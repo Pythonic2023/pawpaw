@@ -6,10 +6,18 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <form method="POST" action="{% url 'paymentcomplete' %}">
         {% csrf_token %}
+        <div class="paymentcontainer">
+            <h1>Payment information</h1>
+            <div class="gridcontainer">
         {% for field in paymentform %}
-            <div class="field">{{ field.label_tag }} {{ field }}</div>
+            <input type="hidden" name="field_id" value='{{ field.name }}'>
+            <div class="field" id="{{ field.name }}">{{ field.label_tag }} {{ field }}</div>
         {% endfor %}
+            </div>
+            <button id="paybutton">Pay</button>
+        </div>
     </form>
 {% endblock %}
