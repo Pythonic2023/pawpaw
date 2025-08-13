@@ -26,13 +26,23 @@ def cart(request):
     else:
         # Get Users cart items if there is any and send them to template
         authenticated_user = User.objects.get(username=request.user)
-        if Cart(user=authenticated_user):
+        try:
             cart_instance = Cart.objects.get(user=authenticated_user)
+        except Cart.DoesNotExist:
+            empty_cart = "Cart empty"
+            context = {
+                'error_message': empty_cart,
+            }
+
+            return render(request, "siteerror.html", context)
+
+        if Cart(user=authenticated_user) is not None:
             cart_item_instance = CartItem.objects.all()
             cart_items = cart_item_instance
             context = {'cart': cart_items,
                        }
             return render(request, "cart.html", context)
+
         return render(request, "cart.html")
 
 
@@ -157,5 +167,8 @@ def payment_complete(request):
         'cart_items': cart_items,
         'user': user,
     }
-
+    user_object = User.objects.get(username=request.user)
+    user_id = user_object.pk
+    cart_object = Cart.objects.get(user=user_id)
+    cart_object.delete()
     return render(request, "paymentcomplete.html", context)
