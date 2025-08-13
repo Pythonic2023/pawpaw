@@ -1,6 +1,4 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
-from django.shortcuts import HttpResponse, redirect
+from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from .forms import SignUpForm, PaymentForm
 from django.contrib.auth.models import User
@@ -8,8 +6,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Cart, CartItem
 
-
-# Create your views here.
 
 def index(request):
     return render(request, "base.html")
@@ -27,7 +23,12 @@ def cart(request):
         # Get Users cart items if there is any and send them to template
         authenticated_user = User.objects.get(username=request.user)
         try:
-            cart_instance = Cart.objects.get(user=authenticated_user)
+            Cart.objects.get(user=authenticated_user)
+            cart_item_instance = CartItem.objects.all()
+            cart_items = cart_item_instance
+            context = {'cart': cart_items,
+                       }
+            return render(request, "cart.html", context)
         except Cart.DoesNotExist:
             empty_cart = "Cart empty"
             context = {
@@ -35,15 +36,6 @@ def cart(request):
             }
 
             return render(request, "siteerror.html", context)
-
-        if Cart(user=authenticated_user) is not None:
-            cart_item_instance = CartItem.objects.all()
-            cart_items = cart_item_instance
-            context = {'cart': cart_items,
-                       }
-            return render(request, "cart.html", context)
-
-        return render(request, "cart.html")
 
 
 def delete_cart_item(request):
@@ -58,7 +50,7 @@ def delete_cart_item(request):
                 'cart': cart_items,
             }
             return render(request, "cart.html", context)
-        except Exception as e:
+        except CartItem.DoesNotExist:
             delete_cart_item_error = "Oops, we had trouble with your cart items."
             return site_error(request, delete_cart_item_error)
     else:
