@@ -27,3 +27,11 @@ class Payment(models.Model):
     city = models.CharField(max_length=30)
     state = models.CharField(max_length=30)
 
+
+class Products(models.Model):
+    product_name = models.CharField(max_length=20)
+    product_price = models.FloatField()
+    image = models.ImageField(upload_to="media/", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.product_name} {self.product_price}"

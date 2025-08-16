@@ -4,7 +4,7 @@ from .forms import SignUpForm, PaymentForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from .models import Cart, CartItem
+from .models import Cart, CartItem, Products
 
 
 def index(request):
@@ -59,7 +59,11 @@ def delete_cart_item(request):
 
 
 def products(request):
-    return render(request, "products.html")
+    product_list = Products.objects.all()
+    context = {
+        'product_list': product_list,
+    }
+    return render(request, "products.html", context)
 
 
 def news(request):

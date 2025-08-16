@@ -1,0 +1,21 @@
+.products-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: orange;
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+    grid-gap: 40px;
+    border: 3px solid black;
+    border-radius: 12px;
+    padding: 15px;
+    width: 70%;
+}
+
+.grid-item > img {
+    border: 3px solid black;
+    border-radius: 12px;
+    display: block;
+    width: 200px;
+    height: 200px;
+}

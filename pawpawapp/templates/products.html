@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block pagetitle %}
     <h1>Products</h1>
 {% endblock %}
 
 {% block content %}
-    <p>Products</p>
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <div class="products-grid">
+        {% for product in product_list %}
+                <div class="grid-item">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{product.name}}">
+                    {% else %}
+                        <img src="{% static 'images/noimage.jpg' %}">
+                    {% endif %}
+                    {{ product }}
+                </div>
+        {% endfor %}
+    </div>
 {% endblock %}
