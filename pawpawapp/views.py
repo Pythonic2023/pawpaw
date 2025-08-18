@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, get_object_or_404
 from django.shortcuts import render
 from .forms import SignUpForm, PaymentForm
 from django.contrib.auth.models import User
@@ -64,6 +64,14 @@ def products(request):
         'product_list': product_list,
     }
     return render(request, "products.html", context)
+
+
+def productview(request, pk):
+    product_object = get_object_or_404(Products, pk=pk)
+    context = {
+        'product': product_object,
+    }
+    return render(request, "productview.html", context)
 
 
 def news(request):

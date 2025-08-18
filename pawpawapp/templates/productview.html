@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}
+    <h1>Product Information</h1>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/productview.css' %}">
+    <div class="flex-container">
+        <div id="product-content">
+        <h1>{{ product.product_name }}</h1>
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'images/noimage.jpg' %}">
+        {% endif %}
+        <strong>{{ product.product_price }}</strong>
+        <button id="add-cart">Add to cart</button>
+        <p>Product Description</p>
+        </div>
+    </div>
+{% endblock %}

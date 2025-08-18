@@ -15,7 +15,7 @@
                     {% else %}
                         <img src="{% static 'images/noimage.jpg' %}">
                     {% endif %}
-                    {{ product }}
+                    <a href="{% url 'productview' pk=product.pk %}">{{ product.product_name }} {{ product.product_price }}</a>
                 </div>
         {% endfor %}
     </div>
