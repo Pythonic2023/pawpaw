@@ -15,7 +15,7 @@ urlpatterns = [
     path("error/", views.site_error, name="site_error"),
     path("cart/payment/", views.payment, name="payment"),
     path("cart/payment/paymentcomplete", views.payment_complete, name="paymentcomplete"),
-    path("cart/product/productview/<int:pk>/", views.productview, name="productview")
+    path("cart/product/productview/<int:pk>/", views.productview, name="productview"),
 ]
 
 if settings.DEBUG:

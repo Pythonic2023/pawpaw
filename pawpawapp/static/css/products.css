@@ -19,3 +19,8 @@
     width: 200px;
     height: 200px;
 }
+
+.grid-item > a {
+    text-decoration: none;
+    color: black;
+}

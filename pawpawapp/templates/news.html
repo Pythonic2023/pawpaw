@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block pagetitle %}
     <h1>News</h1>
 {% endblock %}
 
 {% block content %}
-    <p>News</p>
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+    <div class="flex-container">
+        <p>Container</p>
+    </div>
 {% endblock %}

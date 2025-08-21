@@ -9,15 +9,19 @@
 <link rel="stylesheet" href="{% static 'css/productview.css' %}">
     <div class="flex-container">
         <div id="product-content">
-        <h1>{{ product.product_name }}</h1>
-        {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        {% else %}
-            <img src="{% static 'images/noimage.jpg' %}">
-        {% endif %}
-        <strong>{{ product.product_price }}</strong>
-        <button id="add-cart">Add to cart</button>
-        <p>Product Description</p>
+            <h1>{{ product.product_name }}</h1>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'images/noimage.jpg' %}">
+            {% endif %}
+            <strong>{{ product.product_price }}</strong>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="product_pk" value="{{ product.pk }}">
+                <button type="submit" id="add-cart">Add to cart</button>
+            </form>
+            <p id="product-description">{{ product.product_description }}</p>
         </div>
     </div>
 {% endblock %}

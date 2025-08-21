@@ -25,4 +25,10 @@
 #add-cart {
     border: 2px solid black;
     border-radius: 12px;
+    margin: 5px;
+}
+
+#product-description {
+    padding: 15px;
+    align-self: center;
 }

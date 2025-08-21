@@ -1,4 +1,5 @@
-from django.shortcuts import HttpResponse, get_object_or_404
+from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
+from django.shortcuts import HttpResponse, get_object_or_404, redirect
 from django.shortcuts import render
 from .forms import SignUpForm, PaymentForm
 from django.contrib.auth.models import User
@@ -38,6 +39,26 @@ def cart(request):
             return render(request, "siteerror.html", context)
 
 
+def add_cart_item(request):
+    if request.method == "POST":
+        try:
+            cart_object = Cart.objects.get(user=request.user)
+            print(cart_object)
+            product_pk = request.POST.get("product_pk")
+            product_object = Products.objects.get(pk=product_pk)
+            print(product_pk)
+            item_object = CartItem(cart=cart_object, item_name=product_object.product_name)
+            print(item_object)
+            item_object.save()
+        except ObjectDoesNotExist:
+            create_cart_object = Cart(user=request.user)
+            create_cart_object.save()
+            add_cart_item(request)
+        return redirect('cart')
+    else:
+        return render(request, "cart.html")
+
+
 def delete_cart_item(request):
     if request.method == "POST":
         cart_item = request.POST.get("item_id")
@@ -67,11 +88,18 @@ def products(request):
 
 
 def productview(request, pk):
-    product_object = get_object_or_404(Products, pk=pk)
-    context = {
-        'product': product_object,
-    }
-    return render(request, "productview.html", context)
+    if request.method == "POST":
+        try:
+            return add_cart_item(request)
+        except Exception as e:
+            print(e)
+            return HttpResponse("Does not exist")
+    else:
+        product_object = get_object_or_404(Products, pk=pk)
+        context = {
+            'product': product_object,
+        }
+        return render(request, "productview.html", context)
 
 
 def news(request):
