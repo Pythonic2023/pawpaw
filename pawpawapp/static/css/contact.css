@@ -1,0 +1,11 @@
+.contact-flex {
+    display: flex;
+}
+
+#contact-item {
+    border: 3px solid black;
+    border-radius: 12px;
+    background-color: orange;
+    padding: 20px;
+    text-align: center;
+}

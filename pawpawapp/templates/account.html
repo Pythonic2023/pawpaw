@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="{% static 'css/account.css' %}">
 
     {% if user.is_authenticated %}
+        <div id="authenticated-flex">
         <p>Welcome, {{ user.username }}</p>
         <form action={% url "user_logout" %}>
             {% csrf_token %}
             <button id="logout" type="submit">Logout</button>
         </form>
+        </div>
     {% else %}
         <p>Account page</p>
         <h1>Sign in</h1>

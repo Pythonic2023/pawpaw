@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block pagetitle %}
     <h1>Contact</h1>
 {% endblock %}
 
 {% block content %}
-    <p>Our dedicated team is here to help with any questions or concerns</p>
-    <p>Toll-free number: +1 (800) 555-8888</p>
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <div class="contact-flex">
+        <div id="contact-item">
+        <p>Our dedicated team is here to help with any questions or concerns</p>
+        <p>Toll-free number: +1 (800) 555-8888</p>
+        </div>
+    </div>
 {% endblock %}

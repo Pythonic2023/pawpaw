@@ -8,6 +8,16 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/news.css' %}">
     <div class="flex-container">
-        <p>Container</p>
+        <div class="news-grid">
+        {% for news_item in all_news %}
+            <div class="grid-item">
+            {% if news_item.image %}
+                <img src="{{ news_item.image.url }}" alt="news image">
+            {% endif %}
+            <p> {{ news_item.news_title }} </p>
+            <p> {{ news_item.news_body }} </p>
+            </div>
+        {% endfor %}
+        </div>
     </div>
 {% endblock %}

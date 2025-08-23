@@ -5,7 +5,7 @@ from .forms import SignUpForm, PaymentForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from .models import Cart, CartItem, Products
+from .models import Cart, CartItem, Products, News
 
 
 def index(request):
@@ -103,7 +103,20 @@ def productview(request, pk):
 
 
 def news(request):
-    return render(request, "news.html")
+    try:
+        all_news_objects = News.objects.all()
+        context = {
+            'all_news': all_news_objects,
+        }
+        return render(request, "news.html", context)
+    except ObjectDoesNotExist:
+        news_error = "No news"
+        context = {
+            'error_message': news_error,
+        }
+        return render(request, "siteerror.html", context)
+
+
 
 
 def contact(request):
@@ -141,7 +154,7 @@ def signup(request):
         user.first_name = first_name
         user.last_name = last_name
         user.save()
-        return render(request, "signupsuccess.html", {'user': user_name})
+        return render(request, "account.html", {'user': user_name})
     else:
         user_signin = AuthenticationForm()
         return render(request, "account.html", {'signupform': user_signup, 'signinform': user_signin})
@@ -158,7 +171,7 @@ def signin(request):
             print(f"{user} AUTHENTICATED")
             if user is not None:
                 login(request, user)
-                return HttpResponse(f"logged in as {user}")
+                return redirect("account")
             else:
                 user_signup = SignUpForm()
                 user_signin = AuthenticationForm()
@@ -174,7 +187,7 @@ def signin(request):
 
 def user_logout(request):
     logout(request)
-    return HttpResponse("logged out")
+    return redirect("index")
 
 
 def site_error(request, error_message):

@@ -36,3 +36,9 @@ class Products(models.Model):
 
     def __str__(self):
         return f"{self.product_name} {self.product_price}"
+
+
+class News(models.Model):
+    image = models.ImageField(upload_to="media/", null=True, blank=True)
+    news_title = models.CharField(max_length=30)
+    news_body = models.TextField()
